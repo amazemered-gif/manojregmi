@@ -10,8 +10,6 @@
 
   .header{background:rgba(0,0,0,0.45);backdrop-filter:blur(8px);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;border-bottom:0.5px solid rgba(255,255,255,0.12)}
   .header-title{font-size:16px;font-weight:500;color:#fff;letter-spacing:0.3px}
-  .header-lang{background:rgba(255,255,255,0.12);border:0.5px solid rgba(255,255,255,0.25);color:#fff;padding:6px 14px;border-radius:8px;font-size:12px;cursor:pointer;transition:background 0.2s}
-  .header-lang:hover{background:rgba(255,255,255,0.22)}
 
   .section{background:rgba(255,255,255,0.07);margin:16px;border-radius:16px;border:0.5px solid rgba(255,255,255,0.14);padding:24px}
   .section-label{font-size:11px;font-weight:600;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:16px}
@@ -22,18 +20,18 @@
   .vote-date{font-size:20px;font-weight:700;color:#fff;display:inline-block;margin:2px 0}
   .hero-img{border-radius:10px;overflow:hidden;transition:transform 0.4s,opacity 0.4s;transform-origin:top right}
   .hero-img img{width:100%;height:auto;display:block}
-  .img-ph{background:rgba(255,255,255,0.08);display:flex;flex-direction:column;align-items:center;justify-content:center;height:130px;gap:8px;padding:10px}
-  .img-ph svg{opacity:0.35}
-  .img-ph span{font-size:10px;color:rgba(255,255,255,0.4);text-align:center;line-height:1.4}
 
   /* Why section */
-  .expand-row{display:flex;align-items:center;justify-content:space-between}
-  .expand-btn{width:30px;height:30px;border-radius:50%;border:0.5px solid rgba(255,255,255,0.25);background:rgba(255,255,255,0.08);cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.7);line-height:1;transition:background 0.2s}
+  .expand-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:0}
+  .expand-row .section-label{margin-bottom:0}
+  .expand-btn{width:30px;height:30px;border-radius:50%;border:0.5px solid rgba(255,255,255,0.25);background:rgba(255,255,255,0.08);cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.7);line-height:1;transition:background 0.2s;flex-shrink:0}
   .expand-btn:hover{background:rgba(255,255,255,0.18)}
-  .why-list{margin-top:16px;display:flex;flex-direction:column;gap:10px;overflow:hidden;transition:max-height 0.4s ease;max-height:0}
+  .why-list{display:flex;flex-direction:column;gap:10px;overflow:hidden;transition:max-height 0.4s ease;max-height:0;margin-top:0}
+  .why-list.open{max-height:600px;margin-top:16px}
   .why-item{display:flex;align-items:center;gap:12px;padding:12px 14px;background:rgba(255,255,255,0.07);border-radius:10px;border:0.5px solid rgba(255,255,255,0.1)}
   .why-num{font-size:13px;font-weight:500;color:rgba(255,255,255,0.45);width:18px;flex-shrink:0}
-  .why-bar{flex:1;height:10px;background:rgba(255,255,255,0.1);border-radius:5px}
+  .why-bar-track{flex:1;height:10px;background:rgba(255,255,255,0.1);border-radius:5px;overflow:hidden}
+  .why-bar-fill{height:100%;border-radius:5px;background:linear-gradient(90deg,#5dcaa5,#378add);width:0;transition:width 0.6s ease}
 
   /* Map section */
   .map-row{display:flex;gap:10px;margin-bottom:14px}
@@ -106,33 +104,39 @@
 </div>
 
 <!-- WHY PARTICIPATING -->
-<div class="why-list" id="whyList">
-  <div class="why-item">
-    <span class="why-num">1.</span>
-    <div style="flex:1">
-      <div style="font-size:14px;font-weight:500;margin-bottom:4px">Better Public Transport</div>
-      <div class="why-bar" style="width:92%"></div>
-    </div>
+<div class="section">
+  <div class="expand-row">
+    <div class="section-label">Why participate?</div>
+    <button class="expand-btn" id="expandBtn" onclick="toggleWhy()" aria-expanded="false" aria-controls="whyList">+</button>
   </div>
-  <div class="why-item">
-    <span class="why-num">2.</span>
-    <div style="flex:1">
-      <div style="font-size:14px;font-weight:500;margin-bottom:4px">More Green Spaces</div>
-      <div class="why-bar" style="width:76%"></div>
+  <div class="why-list" id="whyList">
+    <div class="why-item">
+      <span class="why-num">1.</span>
+      <div style="flex:1">
+        <div style="font-size:14px;font-weight:500;margin-bottom:6px">Better Public Transport</div>
+        <div class="why-bar-track"><div class="why-bar-fill" data-width="92"></div></div>
+      </div>
     </div>
-  </div>
-  <div class="why-item">
-    <span class="why-num">3.</span>
-    <div style="flex:1">
-      <div style="font-size:14px;font-weight:500;margin-bottom:4px">Support for International Residents</div>
-      <div class="why-bar" style="width:84%"></div>
+    <div class="why-item">
+      <span class="why-num">2.</span>
+      <div style="flex:1">
+        <div style="font-size:14px;font-weight:500;margin-bottom:6px">More Green Spaces</div>
+        <div class="why-bar-track"><div class="why-bar-fill" data-width="76"></div></div>
+      </div>
     </div>
-  </div>
-  <div class="why-item">
-    <span class="why-num">4.</span>
-    <div style="flex:1">
-      <div style="font-size:14px;font-weight:500;margin-bottom:4px">Affordable Housing Initiatives</div>
-      <div class="why-bar" style="width:66%"></div>
+    <div class="why-item">
+      <span class="why-num">3.</span>
+      <div style="flex:1">
+        <div style="font-size:14px;font-weight:500;margin-bottom:6px">Support for International Residents</div>
+        <div class="why-bar-track"><div class="why-bar-fill" data-width="84"></div></div>
+      </div>
+    </div>
+    <div class="why-item">
+      <span class="why-num">4.</span>
+      <div style="flex:1">
+        <div style="font-size:14px;font-weight:500;margin-bottom:6px">Affordable Housing Initiatives</div>
+        <div class="why-bar-track"><div class="why-bar-fill" data-width="66"></div></div>
+      </div>
     </div>
   </div>
 </div>
@@ -166,7 +170,7 @@
   <div class="support-inner">
     <div class="support-sub">Click the button to show your support</div>
     <button class="pledge-btn" id="pledgeBtn" onclick="pledge()">I will vote for you</button>
-    <div class="pledge-count" id="pledgeCount">501 will vote for you</div>
+    <div class="pledge-count" id="pledgeCount"></div>
   </div>
 </div>
 
@@ -181,6 +185,9 @@
 
 <script>
   const API_KEY = 'YOUR_API_KEY';
+  const BASE_COUNT = 50; // starting count
+  const STORAGE_KEY_COUNT = 'pledge_count';
+  const STORAGE_KEY_VOTED = 'pledge_voted';
 
   const POLLING_STATIONS = [
     { name: 'Jyväskylä City Hall', address: 'Vapaudenkatu 32, 40100 Jyväskylä, Finland' },
@@ -188,14 +195,30 @@
     { name: 'Lyseonmäki School', address: 'Yliopistonkatu 23, 40100 Jyväskylä, Finland' }
   ];
 
-  let expanded = false, pledged = false, count = 501;
+  /* ── Why section ── */
+  let expanded = false;
+  let barsAnimated = false;
 
   function toggleWhy() {
     expanded = !expanded;
-    document.getElementById('whyList').style.maxHeight = expanded ? '400px' : '0';
-    document.getElementById('expandBtn').textContent = expanded ? '−' : '+';
+    const list = document.getElementById('whyList');
+    const btn = document.getElementById('expandBtn');
+    list.classList.toggle('open', expanded);
+    btn.textContent = expanded ? '−' : '+';
+    btn.setAttribute('aria-expanded', expanded);
+
+    if (expanded && !barsAnimated) {
+      barsAnimated = true;
+      // small delay so CSS transition fires after max-height opens
+      setTimeout(() => {
+        document.querySelectorAll('.why-bar-fill').forEach(el => {
+          el.style.width = el.dataset.width + '%';
+        });
+      }, 60);
+    }
   }
 
+  /* ── Map section ── */
   async function findLocation() {
     const addr = document.getElementById('addrInput').value.trim();
     if (!addr) return;
@@ -257,16 +280,39 @@
     }
   }
 
-  function pledge() {
-    pledged = !pledged;
+  /* ── Pledge / support ── */
+  function getCount() {
+    return parseInt(localStorage.getItem(STORAGE_KEY_COUNT) || BASE_COUNT, 10);
+  }
+  function hasVoted() {
+    return localStorage.getItem(STORAGE_KEY_VOTED) === 'true';
+  }
+  function renderPledge() {
+    const count = getCount();
+    const voted = hasVoted();
     const btn = document.getElementById('pledgeBtn');
-    if (pledged) { count++; btn.classList.add('active'); btn.textContent = 'Thanks for your support!'; }
-    else { count--; btn.classList.remove('active'); btn.textContent = 'I will vote for you'; }
     document.getElementById('pledgeCount').textContent = count + ' will vote for you';
+    if (voted) {
+      btn.classList.add('active');
+      btn.textContent = 'Thanks for your support!';
+    }
   }
 
+  function pledge() {
+    if (hasVoted()) return; // one click per browser, no toggle
+    const newCount = getCount() + 1;
+    localStorage.setItem(STORAGE_KEY_COUNT, newCount);
+    localStorage.setItem(STORAGE_KEY_VOTED, 'true');
+    renderPledge();
+  }
+
+  // init pledge UI
+  renderPledge();
+
+  /* ── Address input enter key ── */
   document.getElementById('addrInput').addEventListener('keydown', e => { if (e.key === 'Enter') findLocation(); });
 
+  /* ── Hero image scroll shrink ── */
   function updateHero() {
     const img = document.getElementById('heroImg');
     if (window.innerWidth <= 600) {
